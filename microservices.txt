@@ -1,0 +1,17 @@
+microservices
+1)userService-for toring user details + PostgreSQL db
+2)activityService- foor tracking activity for all users + mongodb
+3)urekaservice- for manging all service together +ureka server Netflix
+
+
+
+
+how to use ureka ---> add dependency 	in pom.xml and in application.yml add euerka.
+
+Web Client-- for intercommunication between microservices
+
+
+Event driven ----RabbitMQ
+
+start doker desktop--> open terminal run command --> 
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
