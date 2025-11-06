@@ -33,11 +33,25 @@ private UserRepository userRepository;
 
         if(userRepository.existsByEmail(registerRequest.getEmail()))
         {
-            throw new RuntimeException("Email already exist");
+            User existingUser=userRepository.findByEmail(registerRequest.getEmail());
+
+            UserResponse userResponse=new UserResponse();
+            userResponse.setId(existingUser.getId());
+            userResponse.setKeycloakId(existingUser.getKeycloakId());
+            userResponse.setEmail(existingUser.getEmail());
+            userResponse.setPassword(existingUser.getPassword());
+            userResponse.setFirstName(existingUser.getFirstName());
+            userResponse.setLastName(existingUser.getLastName());
+            userResponse.setCreatedAt(existingUser.getCreatedAt());
+            userResponse.setUpdatedAt(existingUser.getUpdatedAt());
+
+            return userResponse;
+
         }
         User user = new User();
         user.setEmail(registerRequest.getEmail());
         user.setPassword(registerRequest.getPassword());
+        user.setKeycloakId(registerRequest.getKeycloakId());
         user.setFirstName(registerRequest.getFirstName());
         user.setLastName(registerRequest.getLastName());
 
@@ -45,6 +59,7 @@ private UserRepository userRepository;
 
         UserResponse userResponse=new UserResponse();
         userResponse.setId(saveUser.getId());
+        userResponse.setKeycloakId(saveUser.getKeycloakId());
         userResponse.setEmail(saveUser.getEmail());
         userResponse.setPassword(saveUser.getPassword());
         userResponse.setFirstName(saveUser.getFirstName());
@@ -58,6 +73,6 @@ private UserRepository userRepository;
 
     public Boolean existByUserId(String userId) {
         log.info("Calling user Validation for user id: {}",userId);
-        return userRepository.existsById(userId);
+        return userRepository.existsByKeycloakId(userId);
     }
 }
