@@ -4,7 +4,7 @@ import {
   Route,
   Routes,
   useLocation,
-} from "react-router";
+} from "react-router-dom";
 
 import { Button, Box, AccordionDetails } from "@mui/material";
 import { use, useContext } from "react";
@@ -14,6 +14,7 @@ import { setCredentials } from "./store/authSlice";
 import { useState, useEffect } from "react";
 import ActivityForm from "./components/ActivityForm";
 import ActivityList from "./components/ActivityList";
+import ActivityDetail from "./components/ActivityDetail";
 
 const ActivitiesPage = () => {
   return (
@@ -46,14 +47,14 @@ function App() {
   return (
     <Router>
       {!token ? (
-        <Button variant="contained" color="#dc004e" onCliick={logIn}>
+        <Button variant="contained" color="#dc004e" onClick={logIn}>
           LOGIN
         </Button>
       ) : (
         <Box component="section" sx={{ p: 2, border: "1px dashed grey" }}>
           <Routes>
             <Route path="/activities" element={<ActivitiesPage />} />
-            <Route path="/activities/:id" element={<AccordionDetails />} />
+            <Route path="/activities/:id" element={<ActivityDetail />} />
             <Route
               path="/"
               element={
